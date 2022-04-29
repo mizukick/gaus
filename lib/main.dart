@@ -57,7 +57,14 @@ class TodoListPage extends StatelessWidget {
   }
 }
 
-class TodoAddPage extends StatelessWidget {
+class TodoAddPage extends StatefulWidget {
+  @override
+  _TodoAddPageState createState() => _TodoAddPageState();
+}
+
+class _TodoAddPageState extends State<TodoAddPage> {
+  String _text = '';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,13 +76,23 @@ class TodoAddPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            TextField(),
+            Text(_text, style: TextStyle(color: Colors.blue)),
+            const SizedBox(height: 8),
+            TextField(
+              onChanged: (String value) {
+                setState(() {
+                  _text = value;
+                });
+              },
+            ),
             const SizedBox(height: 8),
             Container(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () {},
-                child: Text('リスト追加', style: TextStyle(color: Colors.white)),
+                onPressed: () {
+                  Navigator.of(context).pop(_text);
+                },
+                child: Text('アイテム追加', style: TextStyle(color: Colors.white)),
               ),
             ),
             const SizedBox(height: 8),
